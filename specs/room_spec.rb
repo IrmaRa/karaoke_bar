@@ -87,16 +87,6 @@ def test_guest_can_add_songs
     assert_equal(12, @room_regular.songs.length)
 end
 
-def test_can_guests_pay_entry_fee_returns_true
-  actual = @room_regular.pay_entry_fee(@guest1.money)
-  assert_equal(true, actual)
-end
-
-def test_can_guests_pay_entry_fee_returns_false
-  actual = @room_regular.pay_entry_fee(@guest2.money)
-  assert_equal(false, actual)
-end
-
 def test_can_check_guest_favourite_song_is_on_the_list
     actual = @room_regular.check_favourite_song("Video Games", @song1.name)
     assert_equal("Whoo!", actual)

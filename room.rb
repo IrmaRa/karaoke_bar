@@ -32,18 +32,10 @@ class Room
     end  
   end
 
-  def pay_entry_fee(guest_money)
-    return guest_money >= @entry_fee
-  end
-
   def check_favourite_song(guest_song, song)
     result = guest_song == song ? "Whoo!" : nil
     return result
   end
 
-
-
 end
-
-
 
