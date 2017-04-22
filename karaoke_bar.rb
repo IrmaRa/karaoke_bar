@@ -38,7 +38,11 @@ class KaraokeBar
     return charge_added_bill
   end
 
+  def calculate_venue_income(order_total, guests)
+    total_bill = add_drink_bill(order_total) +add_entry_fee(guests)
+    venue_income_of_the_night = total_bill + @income
+    return venue_income_of_the_night
 
-
+  end
 
 end

@@ -90,10 +90,30 @@ class TestKaraokeBar < MiniTest::Test
     guests_total = @room_regular.guests.length
     actual = @karaoke_bar.add_entry_fee(guests_total)
     assert_equal(30, actual)
-
-
   end
 
+  def test_can_calculate_venue_income
+    bar_menu = Bar.new({soft: 3, beer: 5, cocktail: 8})
+    order_total = bar_menu.drinks.values[1] * 3 +
+    bar_menu.drinks.values[2] * 2
+    guests_total = @room_regular.guests.length
 
+
+    assert_equal(31, bar_menu.add_drink_bill(order_total))
+    assert_equal(30, @karaoke_bar.add_entry_fee(guests_total))
+    assert_equal(61, @karaoke_bar.calculate_venue_income(order_total, guests_total))
+  end
+
+  def test_can_calculate_venue_income
+    bar_weekend_menu = Bar.new({soft: 3, beer: 6, cocktail: 9})
+    order_total = bar_weekend_menu.drinks.values[0] * 5 +
+    bar_weekend_menu.drinks.values[2] * 10
+    guests_total = @room_vip.guests.length
+
+
+    assert_equal(105, bar_weekend_menu.add_drink_bill(order_total))
+    assert_equal(40, @karaoke_bar.add_entry_fee(guests_total))
+    assert_equal(145, @karaoke_bar.calculate_venue_income(order_total, guests_total))
+  end
 
 end 
