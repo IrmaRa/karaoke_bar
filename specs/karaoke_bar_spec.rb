@@ -66,19 +66,15 @@ class TestKaraokeBar < MiniTest::Test
     assert_equal(false, actual)
   end
 
+  def test_can_check_how_much_money_gets_from_one_room
+    actual = @karaoke_bar.count_income(@room_regular.guests.length)
+    assert_equal(30, actual)
+  end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+  def test_can_check_how_much_money_gets_from_all_rooms
+    all_guests = @room_regular.guests.length + @room_party.guests.length + @room_vip.guests.length
+    actual = @karaoke_bar.count_income(all_guests)
+    assert_equal(120, actual)
+  end
 
 end 
