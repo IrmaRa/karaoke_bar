@@ -1,12 +1,13 @@
 class Room
 
-  attr_reader :guests, :songs
+  attr_reader :guests, :songs, :entry_fee
 
   def initialize(type, space_limit, guests, songs)
     @type = type
     @space_limit = space_limit
     @guests = guests
     @songs = songs
+    @entry_fee = 10
   end
 
   def check_guests()
@@ -31,4 +32,18 @@ class Room
     end  
   end
 
+  def pay_entry_fee(guest_money)
+    return guest_money >= @entry_fee
+  end
+
+  def check_favourite_song(guest_song, song)
+    result = guest_song == song ? "Whoo!" : nil
+    return result
+  end
+
+
+
 end
+
+
+
