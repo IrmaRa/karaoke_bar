@@ -4,6 +4,7 @@ require_relative('../karaoke_bar')
 require_relative('../room')
 require_relative('../guest')
 require_relative('../song')
+require_relative('../bar')
 
 class TestKaraokeBar < MiniTest::Test
 
@@ -76,5 +77,23 @@ class TestKaraokeBar < MiniTest::Test
     actual = @karaoke_bar.count_income(all_guests)
     assert_equal(120, actual)
   end
+
+  def test_can_add_drinks_to_room_bill
+    bar_menu = Bar.new({soft: 3, beer: 5, cocktail: 8})
+    order_total = bar_menu.drinks.values[1] * 3 +
+    bar_menu.drinks.values[2] * 2
+    actual = bar_menu.add_drink_bill(order_total)
+    assert_equal(31, actual)
+  end
+
+  def test_can_add_entry_fee_to_room_bill
+    guests_total = @room_regular.guests.length
+    actual = @karaoke_bar.add_entry_fee(guests_total)
+    assert_equal(30, actual)
+
+
+  end
+
+
 
 end 
