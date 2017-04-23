@@ -17,6 +17,7 @@ class TestRoom < MiniTest::Test
 
     guests = [@guest1, @guest2, @guest3, @guest4]
 
+
     @song1 = Song.new("Video Games")
     @song2 = Song.new("Blue Jeans")
     @song3 = Song.new("Shades of Cool")
@@ -30,54 +31,50 @@ class TestRoom < MiniTest::Test
 
     songs = [@song1, @song2, @song3, @song4, @song5, @song6, @song7, @song8, @song9, @song10]
 
-    @room_regular = Room.new("Regular", 10, guests, songs)
+    @room_regular = Room.new("Regular", 10, [], songs)
 
 end
 
 def test_can_check_in_guests_returns_true
-    assert_equal(true, @room_regular.check_guests())
+    guests = [@guest1, @guest2]
+    songs = [@song1, @song2, @song3]
+    room_small = Room.new("Small", 3, guests, songs)
+    assert_equal(true, room_small.check_guests(guests))
 end
 
 def test_can_not_check_in_guests_returns_false
-    guest1 = Guest.new("Mark", 15, "White Tiger")
-    guest2 = Guest.new("Kate", 50, "Gooey")
-    guest3 = Guest.new("Olivia", 60, "Pretty Thoughts")
-    guest4 = Guest.new("Jack", 10, "Sleepless")
-    guests = [guest1, guest2, guest3, guest4]
-    song1 = Song.new("Video Games")
-    song2 = Song.new("Blue Jeans")
-    song3 = Song.new("Shades of Cool")
-    songs = [song1, song2, song3]
+    guests = [@guest1, @guest2, @guest3, @guest4]
+    songs = [@song1, @song2, @song3]
     room_small = Room.new("Small", 3, guests, songs)
-    assert_equal(false, room_small.check_guests())
+    assert_equal(false, room_small.check_guests(guests))
 end
 
 def test_can_add_guest_to_the_room
-    new_guest1 = Guest.new("Mike", 40, "Shades of Cool")
-    new_guests = [new_guest1]
-    @room_regular.check_in(new_guests)
-    assert_equal(5, @room_regular.guests.length)
+    @room_regular.check_in(@guest1)
+    assert_equal(1, @room_regular.guests.length)
 end
 
-def test_can_add_a_group_of_guests_to_the_room  
-    new_guest1 = Guest.new("Mike", 30, "Video Games")
-    new_guest2 = Guest.new("Caroline", 45, "Blue Jeans")
-    new_guest3 = Guest.new("Andy", 60, "Shades of Cool")
-    new_guests = [new_guest1, new_guest2, new_guest3]
-    @room_regular.check_in(new_guests)
-    assert_equal(7, @room_regular.guests.length)
-end
-
-def test_can_check_out_guest_from_the_room
-    @room_regular.check_out([@guest1])
+def test_can_add_a_group_of_guests_to_the_room
+    @room_regular.check_in(@guest1)
+    @room_regular.check_in(@guest2)
+    @room_regular.check_in(@guest3)
     assert_equal(3, @room_regular.guests.length)
 end
 
-def test_can_check_out_all_guests_from_the_room_at_the_same_time
- guests = [@guest1, @guest2, @guest3, @guest4]
- @room_regular.check_out(guests)
- assert_equal(0, @room_regular.guests.length)
+
+def test_can_check_out_guest
+   @room_regular.check_out(@guest1)
+   assert_equal(0, @room_regular.guests.length)
 end
+
+def test_can_check_out_part_of_the_group
+    @room_regular.check_in(@guest1)
+    @room_regular.check_in(@guest2)
+    @room_regular.check_out(@guest1)
+    assert_equal(1, @room_regular.guests.length)
+
+end
+
 
 def test_guest_can_add_songs
     new_song1 = Song.new("Lust For Life")
