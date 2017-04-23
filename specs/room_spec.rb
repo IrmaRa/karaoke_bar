@@ -75,7 +75,6 @@ def test_can_check_out_part_of_the_group
 
 end
 
-
 def test_guest_can_add_songs
     new_song1 = Song.new("Lust For Life")
     new_song2 = Song.new("Love")
