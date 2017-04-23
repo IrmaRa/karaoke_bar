@@ -30,5 +30,4 @@ class TestBar < MiniTest::Test
     assert_equal(26, actual)
   end
 
-
 end

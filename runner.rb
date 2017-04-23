@@ -29,7 +29,6 @@ class Runner
     @viewer.add_guest(@room_regular.check_in(@guest1.name))
   end
 
-
 end
 
 karaoke = Runner.new(Viewer.new)
